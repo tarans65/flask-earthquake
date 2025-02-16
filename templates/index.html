@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Earthquake Events</title>
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome Icons -->
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+    
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            text-align: center;
+        }
+        
+        header {
+            background: #ff6b6b;
+            color: white;
+            padding: 20px 0;
+            font-size: 24px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
+        }
+
+        .container {
+            width: 90%;
+            margin: 30px auto;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        th, td {
+            padding: 12px;
+            border: 1px solid #ddd;
+            text-align: center;
+        }
+
+        th {
+            background: #ff6b6b;
+            color: white;
+            text-transform: uppercase;
+        }
+
+        tr:nth-child(even) {
+            background: #f9f9f9;
+        }
+
+        tr:hover {
+            background: #ffcccc;
+        }
+
+        .footer {
+            margin-top: 30px;
+            padding: 10px;
+            background: #ff6b6b;
+            color: white;
+            font-size: 14px;
+        }
+
+        .btn {
+            display: inline-block;
+            margin: 20px 0;
+            padding: 10px 20px;
+            font-size: 16px;
+            color: white;
+            background: #ff6b6b;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .btn:hover {
+            background: #ff3b3b;
+        }
+
+        /* Responsive Table */
+        @media screen and (max-width: 800px) {
+            table {
+                display: block;
+                overflow-x: auto;
+                white-space: nowrap;
+            }
+
+            th, td {
+                font-size: 14px;
+                padding: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        🌍 Nepal Earthquake Data 🌍
+    </header>
+
+    <div class="container">
+        <h2>Recent Earthquake Events</h2>
+        <button class="btn" onclick="window.location.reload();">
+            <i class="fas fa-sync-alt"></i> Refresh Data
+        </button>
+        
+        <table>
+            <thead>
+                <tr>
+                    <th>Date (BS)</th>
+                    <th>Date (AD)</th>
+                    <th>Local Time</th>
+                    <th>UTC Time</th>
+                    <th>Latitude</th>
+                    <th>Longitude</th>
+                    <th>Magnitude</th>
+                    <th>Remarks</th>
+                    <th>Epicenter</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for eq in earthquakes %}
+                <tr>
+                    <td>{{ eq[1] }}</td>
+                    <td>{{ eq[2] }}</td>
+                    <td>{{ eq[3] }}</td>
+                    <td>{{ eq[4] }}</td>
+                    <td>{{ eq[5] }}</td>
+                    <td>{{ eq[6] }}</td>
+                    <td><strong style="color: {{ 'red' if eq[7] >= 5 else 'black' }};">{{ eq[7] }}</strong></td>
+                    <td>{{ eq[8] }}</td>
+                    <td>{{ eq[9] }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <div class="footer">
+        Made by <strong> Duke Earthquake Early Warning in Kathmandu Bass Connections Research Group
+        </strong> | Data from Seismology Nepal
+    </div>
+
+</body>
+</html>
