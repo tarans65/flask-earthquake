@@ -30,6 +30,7 @@ with pdfplumber.open(pdf_path) as pdf:
                         epicenter = " ".join(parts[8:])  # Remaining columns: Epicenter Name
 
                         # Insert into SQLite database
+                        print("Extracted Row:", date_bs, date_ad, local_time, utc_time, latitude, longitude, magnitude, remarks, epicenter)
                         cursor.execute("""
                         INSERT INTO earthquakes (date_bs, date_ad, local_time, utc_time, latitude, longitude, magnitude, remarks, epicenter)
                         VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
