@@ -4,72 +4,105 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Earthquake Events</title>
-    
+
     <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
-    
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+
+    <!-- Font Awesome Icons -->
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+
     <style>
+        /* General Page Styling */
         body {
-            font-family: 'Poppins', sans-serif;
-            background-color: #f4f4f4;
+            font-family: 'Inter', sans-serif;
+            background-color: #f0f2f5;
             margin: 0;
             padding: 0;
             text-align: center;
+            color: #333;
         }
 
+        /* Header Styling */
         header {
-            background: #ff6b6b;
+            background: linear-gradient(90deg, #003366, #005599);
             color: white;
             padding: 20px 0;
-            font-size: 24px;
+            font-size: 26px;
             font-weight: 600;
             text-transform: uppercase;
-            letter-spacing: 2px;
-            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
+            letter-spacing: 1.5px;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
         }
 
+        /* Main Content */
         .container {
             width: 90%;
             margin: 30px auto;
             background: white;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
             overflow-x: auto;
         }
 
-        input[type="text"] {
-            width: 50%;
-            padding: 10px;
-            margin-bottom: 10px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
+        /* Search Box */
+        .search-box {
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
         }
 
-        button {
-            padding: 10px 15px;
-            background: #ff6b6b;
+        .search-box input {
+            padding: 12px;
+            width: 50%;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            outline: none;
+            transition: 0.3s;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .search-box input:focus {
+            border-color: #005599;
+            box-shadow: 0px 0px 8px rgba(0, 85, 153, 0.3);
+        }
+
+        .search-box button {
+            padding: 12px 18px;
+            font-size: 16px;
+            background: #005599;
             color: white;
             border: none;
             border-radius: 5px;
             cursor: pointer;
-            font-size: 16px;
+            transition: background 0.3s;
+            font-family: 'Inter', sans-serif;
         }
 
+        .search-box button:hover {
+            background: #003366;
+        }
+
+        /* Table Styling */
         table {
             width: 100%;
             border-collapse: collapse;
             margin-top: 20px;
+            font-family: 'Inter', sans-serif;
         }
 
         th, td {
-            padding: 12px;
+            padding: 14px;
             border: 1px solid #ddd;
             text-align: center;
+            font-size: 15px;
         }
 
         th {
-            background: #ff6b6b;
+            background: #003366;
             color: white;
             text-transform: uppercase;
         }
@@ -78,24 +111,90 @@
             background: #f9f9f9;
         }
 
+        tr:nth-child(odd) {
+            background: #e9eef5;
+        }
+
         tr:hover {
-            background: #ffcccc;
+            background: rgba(0, 85, 153, 0.15);
+            transition: 0.3s;
+        }
+
+        /* Magnitude Highlighting */
+        .magnitude {
+            font-weight: bold;
+        }
+
+        .magnitude.high {
+            color: red;
+        }
+
+        .magnitude.low {
+            color: black;
+        }
+
+        /* Footer */
+        .footer {
+            margin-top: 30px;
+            padding: 15px;
+            background: #003366;
+            color: white;
+            font-size: 14px;
+            border-radius: 5px;
+        }
+
+        /* Reset Button */
+        .btn {
+            display: inline-block;
+            margin-top: 10px;
+            padding: 12px 18px;
+            font-size: 16px;
+            color: white;
+            background: #0077cc;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.3s;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .btn:hover {
+            background: #005599;
+        }
+
+        /* Responsive Table */
+        @media screen and (max-width: 800px) {
+            table {
+                display: block;
+                overflow-x: auto;
+                white-space: nowrap;
+            }
+
+            th, td {
+                font-size: 14px;
+                padding: 10px;
+            }
         }
     </style>
 </head>
 <body>
 
     <header>
-        🌍 Nepal Earthquake Data 🌍
+        🌍 Nepal Earthquake Database 🌍
     </header>
 
     <div class="container">
         <h2>Recent Earthquake Events</h2>
-        
-        <form method="POST">
-            <input type="text" name="search" placeholder="Search by epicenter, date, or magnitude..." value="{{ search_query if search_query else '' }}">
-            <button type="submit">Search</button>
+
+        <!-- Search Box -->
+        <form class="search-box" method="GET">
+            <input type="text" name="search" placeholder="Search by Epicenter, Date, or Magnitude..." value="{{ search_query }}">
+            <button type="submit">🔍 Search</button>
         </form>
+
+        <button class="btn" onclick="window.location.href='/'">
+            🔄 Reset
+        </button>
 
         <table>
             <thead>
@@ -114,19 +213,27 @@
             <tbody>
                 {% for eq in earthquakes %}
                 <tr>
-                    <td>{{ eq[1] }}</td>
-                    <td>{{ eq[2] }}</td>
-                    <td>{{ eq[3] }}</td>
-                    <td>{{ eq[4] }}</td>
-                    <td>{{ eq[5] }}</td>
-                    <td>{{ eq[6] }}</td>
-                    <td><strong style="color: {% if eq[7]|float >= 5 %} red {% else %} black {% endif %};">{{ eq[7] }}</strong></td>
-                    <td>{{ eq[8] }}</td>
-                    <td>{{ eq[9] }}</td>
+                    <td>{{ eq['date_bs'] }}</td>
+                    <td>{{ eq['date_ad'] }}</td>
+                    <td>{{ eq['local_time'] }}</td>
+                    <td>{{ eq['utc_time'] }}</td>
+                    <td>{{ eq['latitude'] }}</td>
+                    <td>{{ eq['longitude'] }}</td>
+                    <td>
+                        <span class="magnitude {% if eq['magnitude']|float >= 5 %}high{% else %}low{% endif %}">
+                            {{ eq['magnitude'] }}
+                        </span>
+                    </td>
+                    <td>{{ eq['remarks'] }}</td>
+                    <td>{{ eq['epicenter'] }}</td>
                 </tr>
                 {% endfor %}
             </tbody>
         </table>
+    </div>
+
+    <div class="footer">
+        Made by <strong>Duke Earthquake Early Warning in Kathmandu Bass Connections Research Group</strong> | Data Extracted From Nepal
     </div>
 
 </body>
